@@ -47,8 +47,16 @@
                 <td>
                     {% load l10n %}
                      {% localize on %}
+                     {{sum_acquired_value.acquired_value__sum | intcomma}}
                  </td>
                     {% endlocalize %}
+                <td>
+                    {% load l10n %}
+                     {% localize on %}
+                     {{sum_recent_value.recent_value__sum | intcomma}}
+                 </td>
+                    {% endlocalize %}
+                <td>{{sum_recent_value.recent_value__sum|sub:sum_acquired_value.acquired_value__sum}}</td>
             </tr>
         </tbody>
     </table>
@@ -71,13 +79,21 @@
             </tr>
         </thead>
         <tbody>
+        {% for stock in stocks %}
             <tr>
-                <td>
-                    {% load l10n %}
-                     {% localize on %}
-                 </td>
-                    {% endlocalize %}
+                <td>{{ stock.customer }}</td>
+                <td>{{ stock.symbol }}</td>
+                <td>{{ stock.name }}</td>
+                <td>{{ stock.shares }}</td>
+                <td>{{ stock.purchase_price }}</td>
+                <td>{{ stock.initial_stock_value|intcomma }}</td>
+                <td>{{ stock.current_stock_price }}</td>
+                <td>{{ stock.current_stock_value|intcomma}}</td>
+                <td>{{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma }}</td>
+
+
             </tr>
+        {% endfor %}
         </tbody>
     </table>
     <table class="table table-striped table-bordered table-hover">
@@ -89,13 +105,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    {% load l10n %}
-                     {% localize on %}
-                 </td>
-                    {% endlocalize %}
-            </tr>
+
         </tbody>
     </table>
 
@@ -117,13 +127,19 @@
             </tr>
         </thead>
         <tbody>
+        {% for investment in investments %}
             <tr>
-                <td>
-                    {% load l10n %}
-                     {% localize on %}
-                 </td>
-                    {% endlocalize %}
+                <td>{{ investment.customer }}</td>
+                <td>{{ investment.category }}</td>
+                <td>{{ investment.description }}</td>
+                <td>{{ investment.acquired_value|intcomma }}</td>
+                <td>{{ investment.acquired_date }}</td>
+                <td>{{ investment.recent_value |intcomma}}</td>
+                <td>{{ investment.recent_date }}</td>
+                <td>{{ investment.recent_value|sub:investment.acquired_value|intcomma }}</td>
+
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 
@@ -137,11 +153,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    {% load l10n %}
-                     {% localize on %}
-                 </td>
-                    {% endlocalize %}
+                <td>{{ sum_acquired_value.acquired_value__sum|intcomma }}</td>
+                <td>{{ sum_recent_value.recent_value__sum|intcomma }}</td>
+                <td>{{ sum_recent_value.recent_value__sum|sub:sum_acquired_value.acquired_value__sum|intcomma }}</td>
             </tr>
         </tbody>
     </table>
